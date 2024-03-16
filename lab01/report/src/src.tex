@@ -1,0 +1,89 @@
+\section{Описание}
+Требуется написать реализацию алгоритма поразрядной	сортировки.
+
+Как сказано в \cite{Kormen}: \enquote{основная идея поразрядной сортировки в том, что число разбивается на цифры (разряды), а затем все числа сортируются
+по каждому разряду устойчивой сортировкой}.
+
+\pagebreak
+
+\section{Исходный код}
+На каждой непустой строке входного файла располагается пара \enquote{ключ-значение}, поэтому создадим новую 
+структуру \textit{TPair}, в которой будем хранить ключ и значение. Для неё перегрузим \textit{operator>>} для удобства
+считывания и \textit{operator<<} для вывода. Чтобы хранить пары, напишем класс \textit{TVector}, который будет
+выполнять функцию динамического массива. Для данной задачи метод \textit{PopBack} для вектора реализовывать не нужно.
+Напишем фукнцию поразрядной сортировки \textit{RadixSort} и функцию сортировки подсчётом \textit{CountingSort}, которая будет использоваться для сортровки разрядов.
+
+\begin{longtable}{|p{7.5cm}|p{7.5cm}|}
+\hline
+\rowcolor{lightgray}
+\multicolumn{2}{|c|} {main.cpp}\\
+\hline
+TVector<TPair> CountingSort(TVector<TPair>\& array, int pos)&Функция сортировки подсчётом по букве с номером $pos$ из ключа пары.\\
+\hline
+void RadixSort(TVector<TPair>\& array)&Функция поразрядной сортировки.\\
+\hline
+\end{longtable}
+\begin{lstlisting}[language=C++]
+template <class T>
+class TVector {
+private:
+	int capacity;
+	int size;
+	T* data;
+public:
+	TVector(int size = 0);
+	TVector(int size, T element);
+	TVector(const TVector<T>& other) = delete;
+	TVector(TVector<T>&& other);
+	~TVector();
+	void PushBack(T& element);
+	void PushBack(T&& element);
+	T& operator[](int idx);
+	const T& operator[](int idx) const;
+	TVector<T>& operator=(const TVector<T>& other);
+	TVector<T>& operator=(TVector<T>&& other) noexcept;
+	int Size() const;
+};
+
+struct TPair {
+	std::string key;
+	std::string value;
+	friend std::istream& operator>>(std::istream& is, TPair& rhs);
+	friend std::ostream& operator<<(std::ostream& os, const TPair& rhs);
+	TPair() = default;
+	TPair(const TPair& other) = delete;
+	TPair(TPair&& other);
+	TPair& operator=(const TPair& other);
+	TPair& operator=(TPair&& other) noexcept;
+};
+\end{lstlisting}
+\pagebreak
+
+\section{Консоль}
+\begin{alltt}
+cat_mood@nuclear-box:~/programming/mai-da-labs/lab01$ make
+g++ -std=c++20 -pedantic -Wall -Wextra -Wno-unused-variable main.cpp -o lab01
+cat_mood@nuclear-box:~/programming/mai-da-labs/lab01$ cat tests/03.t
+J 213 DF        QfR
+A 335 MG        JeqOCF
+G 124 EJ        fijFYoKLhcaSBGMnPt
+O 451 YI        zL
+Z 063 JW        c
+W 632 QA        CREMkwavGJbb
+O 760 UP        JncI
+C 221 QC        okFceGcCGjzSzyNwkpH
+B 047 WE        mlznVqGoWOwD
+S 081 LO        PQMN
+cat_mood@nuclear-box:~/programming/mai-da-labs/lab01$ ./lab01 < tests/03.t
+A 335 MG        JeqOCF
+B 047 WE        mlznVqGoWOwD
+C 221 QC        okFceGcCGjzSzyNwkpH
+G 124 EJ        fijFYoKLhcaSBGMnPt
+J 213 DF        QfR
+O 451 YI        zL
+O 760 UP        JncI
+S 081 LO        PQMN
+W 632 QA        CREMkwavGJbb
+Z 063 JW        c
+\end{alltt}
+\pagebreak

@@ -1,0 +1,43 @@
+\section{Тест производительности}
+
+
+Тест производительности представляет из себя следующее: 
+алгоритм поразрядной сортровки сравнивается с \textit{std::stable\_sort} на 7 тестах с разным количеством входных данных, 
+входные данные из себя представляют случайный набор ключей и значений.
+
+\begin{alltt}
+[info] [2024-03-10 21:21:15] Running tests/01.t
+Count of lines is 0
+Radix sort time: 7us
+STL stable sort time: 0us
+[info] [2024-03-10 21:21:15] Running tests/02.t
+Count of lines is 1
+Radix sort time: 8us
+STL stable sort time: 1us
+[info] [2024-03-10 21:21:15] Running tests/03.t
+Count of lines is 10
+Radix sort time: 22us
+STL stable sort time: 9us
+[info] [2024-03-10 21:21:15] Running tests/04.t
+Count of lines is 100
+Radix sort time: 147us
+STL stable sort time: 134us
+[info] [2024-03-10 21:21:15] Running tests/05.t
+Count of lines is 1000
+Radix sort time: 1315us
+STL stable sort time: 1840us
+[info] [2024-03-10 21:21:15] Running tests/06.t
+Count of lines is 10000
+Radix sort time: 13636us
+STL stable sort time: 22433us
+[info] [2024-03-10 21:21:15] Running tests/07.t
+Count of lines is 100000
+Radix sort time: 140472us
+STL stable sort time: 279561us
+\end{alltt}
+
+Как видно, алгоритм поразрядной сортировки выигрывает по времени у \textit{std::stable\_sort}, так как её асимптотическая сложность $O(n \log n)$, когда 
+у поразрядной сортировки -- $O(k n)$, где $k$ -- количество разрядов. При выбранном варианте ключей (автомобильные номера) $k = 6$, поэтому 
+сложность приближается к $O(n)$.
+
+\pagebreak
