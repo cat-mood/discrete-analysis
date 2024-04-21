@@ -127,3 +127,273 @@ TEST(patricia_test, modifier14) {
     }
     EXPECT_ANY_THROW(p.Find("a"));
 }
+
+TEST(patricia_test, modifier15) {
+    TPatriciaTrie p;
+    std::string s = "";
+    for (int i = 0; i < 250; ++i) {
+        s += 'a';
+        p.Insert({s, static_cast<uint64_t>(i)});
+    }
+
+    for (int i = 249; i >= 0; --i) {
+        EXPECT_EQ(p.Find(s).value, i);
+        s.pop_back();
+    }
+
+    for (int i = 0; i < 250; ++i) {
+        s += 'a';
+        p.Erase(s);
+    }
+}
+
+TEST(patricia_test, modifier16) {
+    TPatriciaTrie p;
+    std::string s = "";
+    for (int i = 0; i < 250; ++i) {
+        s += 'a';
+        p.Insert({s, static_cast<uint64_t>(i)});
+    }
+
+    p.Erase("a");
+
+    for (int i = 249; i >= 1; --i) {
+        EXPECT_EQ(p.Find(s).value, i);
+        s.pop_back();
+    }
+}
+
+TEST(patricia_test, modifier17) {
+    TPatriciaTrie p;
+    std::string s = "";
+    for (int i = 0; i < 250; ++i) {
+        s += 'a';
+    }
+
+    for (int i = 0; i < 250; ++i) {
+        p.Insert({s, static_cast<uint64_t>(i)});
+        s.pop_back();
+    }
+
+    s = "";
+
+    for (int i = 0; i < 250; ++i) {
+        s += 'a';
+        p.Find(s);
+    }
+}
+
+TEST(patricia_test, modifier18) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Insert({"d", 2});
+    p.Insert({"c", 3});
+    p.Insert({"f", 4});
+    p.Erase("a");
+    EXPECT_ANY_THROW(p.Find("a"));
+    EXPECT_EQ(p.Find("c").value, 3);
+    EXPECT_EQ(p.Find("d").value, 2);
+    EXPECT_EQ(p.Find("f").value, 4);
+    p.Erase("d");
+    EXPECT_ANY_THROW(p.Find("d"));
+    EXPECT_EQ(p.Find("c").value, 3);
+    EXPECT_EQ(p.Find("f").value, 4);
+    p.Erase("c");
+    EXPECT_ANY_THROW(p.Find("c"));
+    EXPECT_EQ(p.Find("f").value, 4);
+    p.Erase("f");
+    EXPECT_ANY_THROW(p.Find("f"));
+    p.Insert({"a", 1});
+    p.Insert({"d", 2});
+    p.Insert({"c", 3});
+    p.Insert({"f", 4});
+    EXPECT_EQ(p.Find("a").value, 1);
+    EXPECT_EQ(p.Find("c").value, 3);
+    EXPECT_EQ(p.Find("d").value, 2);
+    EXPECT_EQ(p.Find("f").value, 4);
+}
+
+TEST(patricia_test, insert01) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    EXPECT_EQ(p.Find("a").value, 1);
+}
+
+TEST(patricia_test, insert02) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Insert({"b", 2});
+    EXPECT_EQ(p.Find("a").value, 1);
+    EXPECT_EQ(p.Find("b").value, 2);
+}
+
+TEST(patricia_test, insert03) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Insert({"d", 2});
+    p.Insert({"c", 3});
+    p.Insert({"f", 4});
+    EXPECT_EQ(p.Find("a").value, 1);
+    EXPECT_EQ(p.Find("d").value, 2);
+    EXPECT_EQ(p.Find("c").value, 3);
+    EXPECT_EQ(p.Find("f").value, 4);
+}
+
+TEST(patricia_test, insert04) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Erase("a");
+    p.Insert({"a", 2});
+    EXPECT_EQ(p.Find("a").value, 2);
+}
+
+TEST(patricia_test, erase01) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Erase("a");
+    EXPECT_ANY_THROW(p.Find("a"));
+}
+
+TEST(patricia_test, erase02) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Insert({"b", 2});
+    p.Erase("b");
+    EXPECT_ANY_THROW(p.Find("b"));
+    EXPECT_EQ(p.Find("a").value, 1);
+    p.Erase("a");
+    EXPECT_ANY_THROW(p.Find("a"));
+}
+
+TEST(patricia_test, erase03) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Insert({"b", 2});
+    p.Erase("a");
+    EXPECT_ANY_THROW(p.Find("a"));
+    EXPECT_EQ(p.Find("b").value, 2);
+    p.Erase("b");
+    EXPECT_ANY_THROW(p.Find("b"));
+}
+
+TEST(patricia_test, erase04) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Insert({"d", 2});
+    p.Insert({"c", 3});
+    p.Insert({"f", 4});
+    p.Erase("c");
+    EXPECT_ANY_THROW(p.Find("c"));
+    EXPECT_EQ(p.Find("a").value, 1);
+    EXPECT_EQ(p.Find("d").value, 2);
+    EXPECT_EQ(p.Find("f").value, 4);
+    p.Erase("d");
+    EXPECT_ANY_THROW(p.Find("d"));
+    EXPECT_EQ(p.Find("a").value, 1);
+    EXPECT_EQ(p.Find("f").value, 4);
+    p.Erase("a");
+    EXPECT_ANY_THROW(p.Find("a"));
+    EXPECT_EQ(p.Find("f").value, 4);
+}
+
+TEST(patricia_test, erase05) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Insert({"d", 2});
+    p.Insert({"c", 3});
+    p.Insert({"f", 4});
+    p.Erase("f");
+    EXPECT_ANY_THROW(p.Find("f"));
+    EXPECT_EQ(p.Find("a").value, 1);
+    EXPECT_EQ(p.Find("d").value, 2);
+    EXPECT_EQ(p.Find("c").value, 3);
+    p.Erase("d");
+    EXPECT_ANY_THROW(p.Find("d"));
+    EXPECT_EQ(p.Find("a").value, 1);
+    EXPECT_EQ(p.Find("c").value, 3);
+    p.Erase("a");
+    EXPECT_ANY_THROW(p.Find("a"));
+    EXPECT_EQ(p.Find("c").value, 3);
+}
+
+TEST(patricia_test, erase06) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Insert({"d", 2});
+    p.Insert({"c", 3});
+    p.Insert({"f", 4});
+    p.Erase("d");
+    EXPECT_ANY_THROW(p.Find("d"));
+    EXPECT_EQ(p.Find("a").value, 1);
+    EXPECT_EQ(p.Find("c").value, 3);
+    EXPECT_EQ(p.Find("f").value, 4);
+    p.Erase("a");
+    EXPECT_ANY_THROW(p.Find("a"));
+    EXPECT_EQ(p.Find("c").value, 3);
+    EXPECT_EQ(p.Find("f").value, 4);
+}
+
+TEST(patricia_test, erase07) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Insert({"d", 2});
+    p.Insert({"c", 3});
+    p.Insert({"f", 4});
+    p.Erase("a");
+    EXPECT_ANY_THROW(p.Find("a"));
+    EXPECT_EQ(p.Find("c").value, 3);
+    EXPECT_EQ(p.Find("d").value, 2);
+    EXPECT_EQ(p.Find("f").value, 4);
+    p.Erase("d");
+    EXPECT_ANY_THROW(p.Find("d"));
+    EXPECT_EQ(p.Find("c").value, 3);
+    EXPECT_EQ(p.Find("f").value, 4);
+}
+
+TEST(patricia_test, erase08) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Insert({"d", 2});
+    p.Insert({"c", 3});
+    p.Insert({"f", 4});
+    p.Erase("a");
+    p.Erase("c");
+    EXPECT_EQ(p.Find("d").value, 2);
+    EXPECT_EQ(p.Find("f").value, 4);
+    p.Erase("d");
+    EXPECT_EQ(p.Find("f").value, 4);
+}
+
+TEST(patricia_test, erase09) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Insert({"d", 2});
+    p.Insert({"c", 3});
+    p.Insert({"f", 4});
+    p.Erase("f");
+    EXPECT_EQ(p.Find("d").value, 2);
+    EXPECT_EQ(p.Find("c").value, 3);
+    EXPECT_EQ(p.Find("a").value, 1);
+    p.Erase("c");
+    EXPECT_EQ(p.Find("d").value, 2);
+    EXPECT_EQ(p.Find("a").value, 1);
+    p.Erase("d");
+    EXPECT_EQ(p.Find("a").value, 1);
+}
+
+TEST(patricia_test, erase10) {
+    TPatriciaTrie p;
+    p.Insert({"a", 1});
+    p.Insert({"d", 2});
+    p.Insert({"c", 3});
+    p.Insert({"f", 4});
+    p.Erase("f");
+    EXPECT_EQ(p.Find("d").value, 2);
+    EXPECT_EQ(p.Find("c").value, 3);
+    EXPECT_EQ(p.Find("a").value, 1);
+    p.Erase("d");
+    EXPECT_EQ(p.Find("a").value, 1);
+    EXPECT_EQ(p.Find("c").value, 3);
+    p.Erase("c");
+    EXPECT_EQ(p.Find("a").value, 1);
+}

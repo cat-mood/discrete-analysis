@@ -41,10 +41,11 @@ private:
 
     TNode*& FindNode(const std::string& key, int bitNumber);
     TPair<TPatriciaTrie::TNode*, int> FindPreviousNode(const std::string& key, int bitNumber);
+    void DestroyTrie(TNode* node);
 public:
     TPatriciaTrie();
-    ~TPatriciaTrie() = default;     // temporary (don't forget to change!)
-    void Insert(TData&& data);
+    ~TPatriciaTrie();
+    void Insert(const TData& data);
     const TData& Find(const std::string& key);
     void Erase(const std::string& key);
 };

@@ -7,6 +7,23 @@ TPatriciaTrie::TNode::TNode(const TData& data) : data{data} {
 
 TPatriciaTrie::TPatriciaTrie() : root{nullptr} {}
 
+void TPatriciaTrie::DestroyTrie(TNode* node) {
+    if (node == nullptr) {
+        return;
+    }
+    if (node->children[0]->bitNumber > node->bitNumber) {
+        DestroyTrie(node->children[0]);
+    }
+    if (node->children[1] != nullptr && node->children[1]->bitNumber > node->bitNumber) {
+        DestroyTrie(node->children[1]);
+    }
+    delete node;
+}
+
+TPatriciaTrie::~TPatriciaTrie() {
+    DestroyTrie(root);
+}
+
 // if bitNumber == -1, it just finds node by key as usual; otherwise, it finds a place for new node with bitNumber
 TPair<TPatriciaTrie::TNode*, int> TPatriciaTrie::FindPreviousNode(const std::string& key, int bitNumber) {
     if (root == nullptr) {
@@ -37,7 +54,7 @@ TPatriciaTrie::TNode*& TPatriciaTrie::FindNode(const std::string& key, int bitNu
     return previous.key->children[previous.value];
 }
 
-void TPatriciaTrie::Insert(TData&& data) {
+void TPatriciaTrie::Insert(const TData& data) {
     // std::cout << "inserting " << data.key << std::endl;
     if (root == nullptr) {
         TNode* inserting = new TNode{data};
@@ -92,19 +109,18 @@ void TPatriciaTrie::Erase(const std::string& key) {
         }
         TNode*& deletingParentPointer = FindNode(key, deleting->bitNumber);
         if (deleting == deleting->children[0]) {
-            delete deleting;
             deletingParentPointer = deleting->children[1];   // non-self pointer
+            delete deleting;
             return;
         }
+        deletingParentPointer = deleting->children[0];      // non-self pointer
         delete deleting;
-        deletingParentPointer = deleting->children[0];
         return;
     }
     // std::cout << "does not have selfpointer" << std::endl;
-    // the node q has a backward pointer to node p
+    // the node q has a backward pointer to node deleted
     TPair<TNode*, int> q = FindPreviousNode(key, -1);
     TNode*& backwardPointerToQ = FindNode(q.key->data.key, -1);
-    // the node r has a back pointer to q
     TNode*& parentPointerToQ = FindNode(q.key->data.key, q.key->bitNumber);
     deleting->data = std::move(q.key->data);
     backwardPointerToQ = deleting;

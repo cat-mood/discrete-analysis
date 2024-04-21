@@ -32,9 +32,9 @@ int BitDifference(const std::string& a, const std::string& b) {
         return -1;
     }
     if (sizeA > sizeB) {
-        return GetBitDifferenceNumber(a[sizeB] - 'a' + 1) + BYTE_SIZE * sizeB;
+        return GetBitDifferenceNumber(std::tolower(a[sizeB]) - 'a' + 1) + BYTE_SIZE * sizeB;
     }
-    return GetBitDifferenceNumber(b[sizeA] - 'a' + 1) + BYTE_SIZE * sizeA;
+    return GetBitDifferenceNumber(std::tolower(b[sizeA]) - 'a' + 1) + BYTE_SIZE * sizeA;
 }
 
 bool GetBitByIndex(const std::string& str, int index) {

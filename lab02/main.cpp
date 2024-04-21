@@ -27,6 +27,9 @@ int main() {
             }
         } else if (input == "!") {
             std::cout << "NOT READY!!" << std::endl;
+            std::string buf;
+            std::getline(std::cin, buf);
+            continue;
         } else {
             TPair<std::string, uint64_t> p;
             try {
