@@ -26,9 +26,38 @@ int main() {
                 continue;
             }
         } else if (input == "!") {
-            std::cout << "NOT READY!!" << std::endl;
-            std::string buf;
-            std::getline(std::cin, buf);
+            std::string cmd;
+            std::cin >> cmd;
+            if (cmd == "Save") {
+                std::string path;
+                std::cin >> path;
+                std::ofstream file;
+                try {
+                    file.open(path);
+                } catch (std::exception& e) {
+                    std::cout << "ERROR: " << e.what() << std::endl;
+                }
+                try {
+                    t.SaveToFile(file);
+                } catch (std::exception& e) {
+                    std::cout << e.what() << std::endl;
+                }
+            } else if (cmd == "Load") {
+                std::string path;
+                std::cin >> path;
+                std::ifstream file;
+                try {
+                    file.open(path);
+                } catch (std::exception& e) {
+                    std::cout << "ERROR: " << e.what() << std::endl;
+                }
+                try {
+                    t.LoadFromFile(file);
+                } catch (std::exception& e) {
+                    std::cout << e.what() << std::endl;
+                }
+            }
+            std::cout << "OK" << std::endl;
             continue;
         } else {
             TPair<std::string, uint64_t> p;
