@@ -27,6 +27,9 @@ add_library(${PROJECT_NAME}_lib SHARED ${sources})
 add_executable(${PROJECT_NAME}_exe main.cpp)
 target_link_libraries(${PROJECT_NAME}_exe PRIVATE ${PROJECT_NAME}_lib)
 
+add_executable(${PROJECT_NAME}_benchmark benchmark.cpp)
+target_link_libraries(${PROJECT_NAME}_benchmark PRIVATE ${PROJECT_NAME}_lib)
+
 add_executable(${PROJECT_NAME}_test ${tests})
 target_link_libraries(
   ${PROJECT_NAME}_test 
