@@ -1,4 +1,5 @@
 #include "patricia.h"
+#include <iostream>
 
 TPatriciaTrie::TNode::TNode(const TData& data) : data{data} {
     children[0] = nullptr;
@@ -136,6 +137,15 @@ void TPatriciaTrie::TreeToArray(TNode** array, TNode* root, int& id) const {
     }
 }
 
+void TPatriciaTrie::TSaveData::WriteToFile(std::ofstream& file) const {
+    file.write(reinterpret_cast<const char*>(&id), sizeof(int));
+    file.write(reinterpret_cast<const char*>(key), sizeof(char) * KEY_LENGTH);
+    file.write(reinterpret_cast<const char*>(&value), sizeof(uint64_t));
+    file.write(reinterpret_cast<const char*>(&bitNumber), sizeof(int));
+    file.write(reinterpret_cast<const char*>(&leftId), sizeof(int));
+    file.write(reinterpret_cast<const char*>(&rightId), sizeof(int));
+}
+
 void TPatriciaTrie::SaveToFile(std::ofstream& file) const {
     file.write(reinterpret_cast<const char*>(&size), sizeof(int));
     TNode* nodes[size];
@@ -144,7 +154,13 @@ void TPatriciaTrie::SaveToFile(std::ofstream& file) const {
     for (int i = 0; i < size; ++i) {
         TSaveData data;
         data.id = i;
-        std::memcpy(data.key, nodes[i]->data.key.c_str(), sizeof(char) * KEY_LENGTH);
+        for (int j = 0; j < KEY_LENGTH; ++j) {
+            if (j >= nodes[i]->data.key.size()) {
+                data.key[j] = 0;
+                continue;
+            }
+            data.key[j] = nodes[i]->data.key[j];
+        }
         data.value = nodes[i]->data.value;
         data.bitNumber = nodes[i]->bitNumber;
         data.leftId = nodes[i]->children[0]->id;
@@ -153,7 +169,7 @@ void TPatriciaTrie::SaveToFile(std::ofstream& file) const {
         } else {
             data.rightId = nodes[i]->children[1]->id;
         }
-        file.write(reinterpret_cast<const char*>(&data), sizeof(TSaveData));
+        data.WriteToFile(file);
     }
 }
 
@@ -175,6 +191,15 @@ void TPatriciaTrie::ArrayToTree(TSaveData* array) {
     root = nodes[0];
 }
 
+void TPatriciaTrie::TSaveData::ReadFromFile(std::ifstream& file) {
+    file.read(reinterpret_cast<char*>(&id), sizeof(int));
+    file.read(reinterpret_cast<char*>(key), sizeof(char) * KEY_LENGTH);
+    file.read(reinterpret_cast<char*>(&value), sizeof(uint64_t));
+    file.read(reinterpret_cast<char*>(&bitNumber), sizeof(int));
+    file.read(reinterpret_cast<char*>(&leftId), sizeof(int));
+    file.read(reinterpret_cast<char*>(&rightId), sizeof(int));
+}
+
 void TPatriciaTrie::LoadFromFile(std::ifstream& file) {
     DestroyTrie(root);
     root = nullptr;
@@ -187,7 +212,7 @@ void TPatriciaTrie::LoadFromFile(std::ifstream& file) {
     }
     TSaveData datas[size];
     for (int i = 0; i < size; ++i) {
-        file.read(reinterpret_cast<char*>(&datas[i]), sizeof(TSaveData));
+        datas[i].ReadFromFile(file);
         if (file.fail()) {
             throw std::runtime_error("ERROR: Bad file");
         }

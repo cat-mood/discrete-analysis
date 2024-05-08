@@ -53,6 +53,8 @@ private:
         int rightId;
 
         TSaveData() = default;
+        void WriteToFile(std::ofstream& file) const;
+        void ReadFromFile(std::ifstream& file);
     };
 
     TNode* root;
