@@ -1,5 +1,5 @@
 */*.out
-*/tests/
-!lab02/tests/
+lab01/tests/
+*/tests/e2e/
 .vscode/
 */build/
