@@ -5,39 +5,27 @@ std::vector<int> ZFunction(const TString& s) {
     std::vector<int> z(s.size(), 0);
     int l = 0;
     int r = 0;
-    for (int k = 1; k < s.size(); ++k) {
-        if (k > r) {
-            for (int j = 0; j < s.size(); ++j) {
-                if (s[j] == s[j + k] && (j + k) < s.size()) {
-                    ++z[k];
-                } else {
-                    break;
-                }
-            }
-            if (z[k] > 0) {
-                l = k;
-                r = k + z[k] - 1;
-            }
-        } else {
-            int kPrefix = k - l;
-            if (z[kPrefix] < r - k + 1) {
-                z[k] = z[kPrefix];
-            } else {
-                int q = r - k + 1;
-                for (int j = r - l + 1; j < s.size(); ++j) {
-                    if (s[j] == s[j + l] && (j + l) < s.size()) {
-                        ++q;
-                    } else {
-                        break;
-                    }
-                }
-                z[k] = q;
-                r = q - 1;
-                l = k;
-            }
+    for (int i = 1; i < s.size(); ++i) {
+        z[i] = std::max(0, std::min(r - i, z[i - l]));
+        while (i + z[i] < s.size() && s[z[i]] == s[i + z[i]]) {
+            ++z[i];
         }
-        // std::cout << "k = " << k << " l = " << l << " r = " << r << " z = " << z[k] << std::endl;
+        if (i + z[i] > r) {
+            l = i;
+            r = i + z[i];
+        }
     }
 
     return z;
+}
+
+std::vector<int> SPFunction(const TString& s) {
+    std::vector<int> sp(s.size(), 0);
+    std::vector<int> z = ZFunction(s);
+    for (int j = s.size() - 1; j >= 1; --j) {
+        int i = j + z[j] - 1;
+        sp[i] = z[j];
+    }
+
+    return sp;
 }
