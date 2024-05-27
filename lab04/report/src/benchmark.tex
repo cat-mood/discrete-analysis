@@ -1,0 +1,26 @@
+\section{Тест производительности}
+
+Тест производительности представляет из себя следующее: 
+КМП сравнивается с наивным алгоритмом на 3 тестах с паттерном длиной в 10 символов и текстом длиной в $10^5$, 
+входные данные из себя представляют случайный набор букв "a" и "b".
+
+\begin{alltt}
+cat_mood@nuclear-box:~/programming/mai-da-labs/lab04/build$ ./lab04_benchmark < ../tests/e2e/test01.txt 
+Naive: 6026 ms
+KMP: 3682 ms
+cat_mood@nuclear-box:~/programming/mai-da-labs/lab04/build$ ./lab04_benchmark < ../tests/e2e/test02.txt 
+Naive: 4915 ms
+KMP: 3953 ms
+cat_mood@nuclear-box:~/programming/mai-da-labs/lab04/build$ ./lab04_benchmark < ../tests/e2e/test03.txt 
+Naive: 5539 ms
+KMP: 3542 ms
+\end{alltt}
+
+Как видно, КМП в среднем работает быстрее наивный алгоритм. 
+
+Это связано с тем, что наивный алгоритм работает в среднем за $O(p \cdot (t - p))$, где $p$ -- длина паттерна,
+а $t$ -- длина текста.
+
+Сложность КМП в среднем равна $O(p + t)$, где $p$ -- длина паттерна,
+а $t$ -- длина текста.
+\pagebreak

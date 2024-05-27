@@ -1,0 +1,73 @@
+\section{Описание}
+Требуется написать реализацию алгоритма поиска подстроки в строке Кнута-Морриса-Пратта.
+
+Как сказано в \cite{Gusfield}: Предположим, что при некотором выравнивании Р около Т наивный алгоритм обнаружил совпадение первых 
+i символов из Р с их парами из T, а при следующем сравнении было несовпадение. 
+В этом случае наивный алгоритм сдвинет Р на одно место и начнет сравнение заново с левого конца Р. 
+Но часто можно сдвинуть образец дальше. Например, если Р = abcxabcde и при текущем расположении Р и Т несовпадение нашлось в позиции 8 строки Р, 
+то есть возможность сдвинуть Р на четыре места без пропуска вхождений Р в Т. Отметим, что это можно увидеть, ничего не зная о тексте T и расположении Р 
+относительно Т. Требуется только место несовпадения в Р. Алгоритм Кнута-Морриса-Пратта, основываясь на таком способе рассуждений, 
+и делает сдвиг больше, чем наивный алгоритм.
+
+\pagebreak
+
+\section{Исходный код}
+Функция \textit{ZFunction} реализует Z-алгоритм (Z[i] -- длина наибольшей подстроки, начинающейся в i и совпадающей с префиксом строки).
+
+Функция \textit{SPFunction} реализует префикс-функцию (sp[i] -- длина наибольшего собственного суффикса, который совпадает с префиксом строки).
+
+Функция \textit{KMPFunction} реализует алгоритм Кнута-Морисса-Пратта.
+
+Для реализации алфавита в виде слов используется структура \textit{TWord}. Для этой струтуры перегружены операторы \enquote{==} и \enquote{!=}.
+\begin{longtable}{|p{7.5cm}|p{7.5cm}|}
+\hline
+\rowcolor{lightgray}
+\multicolumn{2}{|c|} {kmp.h}\\
+\hline
+std::vector<int> ZFunction(const TString\& s)&Z-алгоритм.\\
+\hline
+std::vector<int> SPFunction(const TString\& s)&Префикс-функция.\\
+\hline
+std::vector<int> KMPFunction(const TString\& pattern, const TString\& text)&КМП-алгоритм.\\
+\hline
+\end{longtable}
+
+\begin{lstlisting}[language=C++]
+struct TWord {
+	char word[MAX_WORD_LEN];
+	int lineId, wordId;
+
+	TWord();
+	void Clear();
+	char& operator[](int index);
+	bool operator==(const TWord& rhs) const;
+	bool operator!=(const TWord& rhs) const;
+};
+
+using TString = std::vector<TWord>;
+\end{lstlisting}
+\pagebreak
+
+\section{Консоль}
+\begin{alltt}
+cat_mood@nuclear-box:~/programming/mai-da-labs/lab04/build$ ./lab04_exe < test.txt 
+2, 1
+5, 1
+12, 1
+18, 1
+23, 1
+30, 2
+35, 2
+38, 1
+44, 2
+51, 1
+57, 1
+62, 9
+62, 16
+62, 22
+62, 32
+62, 39
+62, 45
+62, 55
+\end{alltt}
+\pagebreak
