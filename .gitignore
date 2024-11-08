@@ -3,3 +3,4 @@ lab01/tests/
 */tests/e2e/
 .vscode/
 */build/
+*/.vscode
