@@ -1,0 +1,50 @@
+\section{Описание}
+Требуется решить задачу методом динамического программирования.
+
+В \cite{Kormen} сказано: \enquote{Динамическое программирование, как и метод "разделяй и властвуй", позволяет решать задачи, комбинируя
+решения вспомогательных подзадач}. Соответственно, требуется разбить задачу на подзадачи, из которых мы будем формировать решение.
+
+Я предлагаю создать дополнительную матрицу $dp$ размера $n \times m$, в которой на позиции $(i, j)$ будет находится
+минимально возможный штраф, с которым можно прийти в клетку $(i, j)$ матрицы $A$. Тогда ответ (минимальный штраф)
+будет вычисляться как минимум из последней строки матрицы $dp$.
+
+Значение элемента с индексами $i, j$ в матрице $dp$ вычисляется как $min(dp_{i - 1, j - 1}, dp_{i - 1, j}, dp_{i - 1, j + 1}) + A_{i, j}$.
+
+Сложность данного решения -- $O(n \cdot m)$, где $n$ -- количество строк в матрице, $m$ -- количество столбцов.
+
+\pagebreak
+
+\section{Исходный код}
+\begin{longtable}{|p{7.5cm}|p{7.5cm}|}
+\hline
+\rowcolor{lightgray}
+\multicolumn{2}{|c|} {main.cpp}\\
+\hline
+uint16\_t Min(const std::vector<int64\_t>\& vec)&Поиск минимума в векторе.\\
+\hline
+uint16\_t FindMinFareIndex(uint16\_t n, uint16\_t m, const std::vector<std::vector<int64\_t>>\& dp, uint16\_t i, uint16\_t j)&
+Поиск минимального штрафа среди верхних соседей.\\
+\hline
+std::vector<Point> FindPath(uint16\_t n, uint16\_t m, const std::vector<std::vector<int64\_t>>\& dp)&Поиск пути с минимальным штрафом.\\
+\hline
+std::pair<int64\_t, std::vector<Point>> Solve(uint16\_t n, uint16\_t m, const std::vector<std::vector<int64\_t>>\& matrix)&
+Функция решения задачи.\\
+\hline
+\end{longtable}
+
+\begin{lstlisting}[language=C++]
+	using Point = std::pair<uint16_t, uint16_t>;
+\end{lstlisting}
+\pagebreak
+
+\section{Консоль}
+\begin{alltt}
+	cat-mood@nuclear-box:~/programming/mai-da-labs/lab07/build$ ./lab07_exe
+	3 3
+	3 1 2
+	7 4 5
+	8 6 3
+	8
+	(1,2) (2,2) (3,3) 
+\end{alltt}
+\pagebreak

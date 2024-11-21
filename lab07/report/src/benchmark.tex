@@ -1,0 +1,22 @@
+\section{Тест производительности}
+
+Тест производительности представляет из себя следующее: 
+Решение с использованием динамического программирования сравнивается с наивным обходом всех решений на матрице
+$10 \times 10$.
+
+\begin{alltt}
+    cat-mood@nuclear-box:~/programming/mai-da-labs/lab07/build$ ./benchmark < test1.txt
+    naive's time: 8573ms
+    my solution's time: 53ms
+
+    cat-mood@nuclear-box:~/programming/mai-da-labs/lab07/build$ ./benchmark < test2.txt
+    naive's time: 8662ms
+    my solution's time: 54ms
+
+    cat-mood@nuclear-box:~/programming/mai-da-labs/lab07/build$ ./benchmark < test3.txt
+    naive's time: 8303ms
+    my solution's time: 52ms
+\end{alltt}
+
+Как видно, моё решение работает быстрее.
+\pagebreak
