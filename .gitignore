@@ -4,3 +4,5 @@ lab01/tests/
 .vscode/
 */build/
 */.vscode
+lab07/generator.py
+*/problem.cpp

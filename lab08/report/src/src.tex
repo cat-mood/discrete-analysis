@@ -1,0 +1,65 @@
+\section{Описание}
+Требуется решить задачу с помощью жадных алгоритмов.
+
+В \cite{Kormen} сказано: \enquote{Такой алгоритм делает на каждом шаге локально оптимальный
+выбор, -- в надежде, что итоговое решение также окажется оптимальным}. 
+
+Я предлагаю отсортировать исходный массив отрезков по левой и правой границе. Затем
+итерироваться по нему и на каждом шаге искать самый большой отрезок, который покрывает ещё
+непокрытую на предыдущих этапах часть. Соответственно, на каждом шаге нужно обновлять
+границы непокрытого исходного отрезка.
+
+Сложность такого алгоритма -- $O(n \cdot log(n))$, где $n$ -- количество отрезков.
+Такая сложность получается, потому что я использую quick sort.
+
+\pagebreak
+
+\section{Исходный код}
+\begin{longtable}{|p{7.5cm}|p{7.5cm}|}
+\hline
+\rowcolor{lightgray}
+\multicolumn{2}{|c|} {main.cpp}\\
+\hline
+bool IndexComparator(const Segment\& a, const Segment\& b)&Компаратор для сортировки по индексу.\\
+\hline
+bool SegmentComparator(const Segment\& a, const Segment\& b)&
+Компаратор для сортировки по левой и правой границе.\\
+\hline
+\end{longtable}
+
+\begin{lstlisting}[language=C++]
+	struct Segment {
+    int64_t start;
+    int64_t end;
+    size_t index;
+
+    Segment() = default;
+
+    Segment(int64_t start, int64_t end, size_t index) : start{start}, end{end}, index{index} {}
+
+    int64_t ComputeCover(int64_t left, int64_t m) {
+        if (end < 0 || start > m) {
+            return 0;
+        }
+        return std::min<int64_t>(m, end) - std::max<int64_t>(left, start);
+    }
+};
+\end{lstlisting}
+\pagebreak
+
+\section{Консоль}
+\begin{alltt}
+	cat-mood@nuclear-box:~/programming/mai-da-labs/lab08/build$ ./lab08_exe 
+	6
+	1 5
+	0 1
+	1 2
+	2 3
+	3 4
+	4 5
+	5
+	2
+	1 5
+	0 1 
+\end{alltt}
+\pagebreak
