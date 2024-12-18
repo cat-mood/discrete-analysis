@@ -11,7 +11,7 @@ using TWeight = uint64_t;
 using TGraph = std::vector<std::unordered_map<TVertex, TWeight>>;
 
 // BFS
-std::vector<TVertex> FindPath(TGraph graph, TVertex from, TVertex to) {
+std::vector<TVertex> FindPath(const TGraph& graph, TVertex from, TVertex to) {
     std::queue<TVertex> toVisit;
     std::unordered_map<TVertex, TVertex> parent;
 

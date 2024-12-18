@@ -1,0 +1,18 @@
+\section{Тест производительности}
+
+Тест производительности представляет из себя следующее: 
+Решение с использованием BFS сравнивается с решением, использующим DFS.
+В первом тесте 10 вершин и 20 рёбер. Во втором -- 100 вершин и 1000 рёбер.
+
+\begin{alltt}
+    cat-mood@nuclear-box:~/programming/mai-da-labs/lab09$ ./a.out < ./build/test.txt 
+    BFS: 69 ms
+    DFS: 97 ms
+
+    cat-mood@nuclear-box:~/programming/mai-da-labs/lab09$ ./a.out < ./build/large_test.txt 
+    BFS: 7683 ms
+    DFS: 16423 ms
+\end{alltt}
+
+Как видно, решение с использованием BFS работает быстрее.
+\pagebreak

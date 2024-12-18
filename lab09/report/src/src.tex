@@ -1,0 +1,50 @@
+\section{Описание}
+Требуется реализовать алгоритм Форда-Фалкерсона. Точнее алгоритм Эдмондса-Карпа.
+Это модификация алгоритма Форда-Фалкерсона.
+
+В \cite{Kormen} приведён алгоритм Форда-Фалкерсона: \enquote{Поиск максимального потока методом
+Форда-Фалкерсона проводится последовательно. Вначале поток нулевой (и величина его равна нулю).
+На каждом шаге мы увеличиваем значение потока. Для этого мы находим "дополняющий путь", по
+которому можно пропустить ещё немного вещества, и используем его для увеличения потока. Этот
+шаг повторяется, пока есть дополняющие пути.}. 
+
+Алгоритм Эдмондса-Карпа заключается в том, чтобы искать кратчайший \enquote{дополняющий путь} с помощью
+обхода в ширину (BFS).
+
+Сложность такого алгоритма -- $O(V \cdot E^2)$, где $V$ -- количество вершин в графе, $E$ -- количество рёбер.
+
+\pagebreak
+
+\section{Исходный код}
+\begin{longtable}{|p{7.5cm}|p{7.5cm}|}
+\hline
+\rowcolor{lightgray}
+\multicolumn{2}{|c|} {main.cpp}\\
+\hline
+std::vector<TVertex> FindPath(const TGraph\& graph, TVertex from, TVertex to)&Поиск пути с помощью BFS.\\
+\hline
+\end{longtable}
+
+\begin{lstlisting}[language=C++]
+	using TVertex = uint16_t;
+	using TWeight = uint64_t;
+	using TGraph = std::vector<std::unordered_map<TVertex, TWeight>>;
+\end{lstlisting}
+\pagebreak
+
+\section{Консоль}
+\begin{alltt}
+	cat-mood@nuclear-box:~/programming/mai-da-labs/lab08/build$ ./lab08_exe 
+	6
+	1 5
+	0 1
+	1 2
+	2 3
+	3 4
+	4 5
+	5
+	2
+	1 5
+	0 1 
+\end{alltt}
+\pagebreak
