@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.21)  28 NOV 2024 17:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2024.11.21)  19 DEC 2024 01:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -723,40 +723,40 @@ been already used, duplicate ignored
                    \relax 
 l.1 \section
             {Описание} [1] [2]
-Underfull \hbox (badness 1107) in paragraph at lines 23--23
-[]|\T2B/cmr/m/n/12 bool IndexComparator(const Segment&
+Underfull \hbox (badness 10000) in paragraph at lines 38--38
+[]|\T2B/cmr/m/n/12 void SplitCurve(TNode* node, int
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 25--25
-[]|\T2B/cmr/m/n/12 bool SegmentComparator(const
+Overfull \hbox (1.11562pt too wide) in paragraph at lines 40--40
+[]|\T2B/cmr/m/n/12 void MatchingStatistic(std::vector<int>&
  []
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
 LaTeX Font Info:    Trying to load font information for T2B+cmtt on input line 
-30.
+44.
 
 (/usr/share/texlive/texmf-dist/tex/latex/cyrillic/t2bcmtt.fd
 File: t2bcmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 )
 LaTeX Font Info:    Font shape `T2B/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T2B/cmtt/m/n' tried instead on input line 31.
- [3]) [4]
+(Font)              Font shape `T2B/cmtt/m/n' tried instead on input line 45.
+ [3] [4]) [5]
 (./src/benchmark.tex
 Overfull \hbox (32.46182pt too wide) in paragraph at lines 10--10
-[]\T2B/cmtt/m/n/12 cat-mood@nuclear-box:~/programming/mai-da-labs/lab07/build$ 
-../a.out <test1.txt[] 
+[]\T2B/cmtt/m/n/12 cat-mood@nuclear-box:~/programming/mai-da-labs/lab05$ ./a.ou
+t <./build/test.txt[] 
  []
 
 
-Overfull \hbox (32.46182pt too wide) in paragraph at lines 14--14
-[]\T2B/cmtt/m/n/12 cat-mood@nuclear-box:~/programming/mai-da-labs/lab08/build$ 
-../a.out <test2.txt[] 
+Overfull \hbox (69.50278pt too wide) in paragraph at lines 14--14
+[]\T2B/cmtt/m/n/12 cat-mood@nuclear-box:~/programming/mai-da-labs/lab05$ ./a.ou
+t <./build/large_test.txt[] 
  []
 
-) (./src/thinks.tex [5]) (./src/literature.tex [6]) [7] (./report.aux)
+) (./src/thinks.tex [6]) (./src/literature.tex [7]) [8] (./report.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -765,13 +765,13 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 5990932239A137F126BA32BBEBE763B8;663.
  ) 
 Here is how much of TeX's memory you used:
- 15124 strings out of 475656
- 228190 string characters out of 5787140
- 2006975 words of memory out of 5000000
- 36884 multiletter control sequences out of 15000+600000
+ 15201 strings out of 475656
+ 229304 string characters out of 5787140
+ 2044975 words of memory out of 5000000
+ 36932 multiletter control sequences out of 15000+600000
  567855 words of font info for 62 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
- 90i,7n,93p,433b,1284s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,7n,93p,433b,2171s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/cat-mood/.texlive2023/texmf-var/fonts/pk/ljfour/lh/lh-t2b/lbtt1200.60
 0pk> </home/cat-mood/.texlive2023/texmf-var/fonts/pk/ljfour/lh/lh-t2b/lbtt1000.
 600pk> </home/cat-mood/.texlive2023/texmf-var/fonts/pk/ljfour/lh/lh-t2b/lbrm100
@@ -780,13 +780,12 @@ Here is how much of TeX's memory you used:
 x1200.600pk> </home/cat-mood/.texlive2023/texmf-var/fonts/pk/ljfour/lh/lh-t2b/l
 bbx1440.600pk> </home/cat-mood/.texlive2023/texmf-var/fonts/pk/ljfour/lh/lh-t2b
 /lbbx1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on report.pdf (8 pages, 131385 bytes).
+mmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.p
+fb>
+Output written on report.pdf (9 pages, 122940 bytes).
 PDF statistics:
- 423 PDF objects out of 1000 (max. 8388607)
- 120 compressed objects within 2 object streams
- 34 named destinations out of 1000 (max. 500000)
+ 474 PDF objects out of 1000 (max. 8388607)
+ 153 compressed objects within 2 object streams
+ 63 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

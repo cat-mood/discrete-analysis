@@ -1,20 +1,20 @@
 \section{Тест производительности}
 
 Тест производительности представляет из себя следующее: 
-Решение с использованием жадных алгоритмов сравнивается с наивным обходом, где 
-для каждого шага покрытия перебираются все сегменты N, а общее число шагов ограничено длиной интервала 
-M.
-Количество отрезков в первом тесте -- 6, во втором -- 30.
+Решение с использованием алгоритма Укконена и статистики совпадений сравнивается с наивным построением
+суффиксного дерева и поиска в нём.
+В первом тесте 5 символов в паттерне и 25 в тексте. Во втором -- 100 в паттерне,
+100 000 в тексте.
 
 \begin{alltt}
-    cat-mood@nuclear-box:~/programming/mai-da-labs/lab07/build$ ../a.out < test1.txt
-    Naive: 27 ms
-    My solution: 10 ms
+    cat-mood@nuclear-box:~/programming/mai-da-labs/lab05$ ./a.out < ./build/test.txt
+    Naive: 19 ms
+    Ukkonen + Matching Statistics: 9 ms
 
-    cat-mood@nuclear-box:~/programming/mai-da-labs/lab08/build$ ../a.out < test2.txt
-    Naive: 39 ms
-    My solution: 14 ms
+    cat-mood@nuclear-box:~/programming/mai-da-labs/lab05$ ./a.out < ./build/large_test.txt
+    Naive: 2639 ms
+    Ukkonen + Matching Statistics: 21 ms
 \end{alltt}
 
-Как видно, моё решение работает быстрее.
+Как видно, решение с использованием алгоритма Укконена и статистики совпадений работает быстрее.
 \pagebreak
