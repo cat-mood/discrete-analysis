@@ -1,0 +1,20 @@
+\section{Тест производительности}
+
+Тест производительности представляет из себя следующее: 
+Решение с использованием жадных алгоритмов сравнивается с наивным обходом, где 
+для каждого шага покрытия перебираются все сегменты N, а общее число шагов ограничено длиной интервала 
+M.
+Количество отрезков в первом тесте -- 6, во втором -- 30.
+
+\begin{alltt}
+    cat-mood@nuclear-box:~/programming/mai-da-labs/lab07/build$ ../a.out < test1.txt
+    Naive: 27 ms
+    My solution: 10 ms
+
+    cat-mood@nuclear-box:~/programming/mai-da-labs/lab08/build$ ../a.out < test2.txt
+    Naive: 39 ms
+    My solution: 14 ms
+\end{alltt}
+
+Как видно, моё решение работает быстрее.
+\pagebreak
