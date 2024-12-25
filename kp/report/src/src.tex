@@ -1,0 +1,61 @@
+\section{Описание}
+Требуется написать реализацию наивного байесовского классификатора.
+
+Наивный байесовский классификатор (Naive Bayes classifier) —- вероятностный классификатор на основе формулы Байеса 
+со строгим (наивным) предположением о независимости признаков между собой при заданном классе, 
+что сильно упрощает задачу классификации из-за оценки одномерных вероятностных плотностей вместо одной многомерной\cite{Habr}.
+
+Формула Байеса: $$P(A | B) = \frac{P(B | A) P(A)}{P(B)}$$
+
+В контексте машинного обучения формула Байеса приобретает следующий вид: $$P(y_k | X) = \frac{P(y_k) P(X | y_k)}{P(X)}$$
+
+В конечном счёте правило классификации будет пропорционально выбору класса с максимальной апостериорной вероятностью:
+$$y_k \propto \arg \max_{y_k} P(y_k) \prod^n_{i = 1} P(X_i | y_k)$$
+
+\pagebreak
+
+\section{Исходный код}
+\begin{longtable}{|p{7.5cm}|p{7.5cm}|}
+\hline
+\rowcolor{lightgray}
+\multicolumn{2}{|c|} {kmp.h}\\
+\hline
+void ToLowerCase(std::string\& str)&Преобразование строки в нижний регистр.\\
+\hline
+std::vector<std::string> Split(const std::string\& s, const std::string\& delimiters)&Разделить строку на слова.\\
+\hline
+void Fit(const std::vector<std::pair<TWord, TCategoryName>>\& data)&Обучение модели.\\
+\hline
+TCategoryName Predict(std::string\& str)&Предсказать классы предложений.\\
+\hline
+\end{longtable}
+
+\begin{lstlisting}[language=C++]
+using TWord = std::string;
+using TCategoryName = uint8_t;
+const std::string DELIM = " .,!?";
+
+class TNaiveBayesClassifier {
+private:
+	using TCategory = std::unordered_map<TWord, uint64_t>;
+
+	std::unordered_map<TCategoryName, TCategory> categoriesWeights;
+public:
+	TNaiveBayesClassifier() {}
+	void Fit(const std::vector<std::pair<TWord, TCategoryName>>& data);
+	TCategoryName Predict(std::string& str);
+
+	std::unordered_map<TCategoryName, TCategory> GetCategoriesWeights() const {
+		return categoriesWeights;
+	}
+};
+\end{lstlisting}
+\pagebreak
+
+\section{Консоль}
+\begin{alltt}
+cat-mood@nuclear-box:~/programming/mai-da-labs/kp/build$ ./kp_exe < test.txt
+0
+1
+\end{alltt}
+\pagebreak
