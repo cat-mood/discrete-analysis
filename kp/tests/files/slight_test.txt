@@ -1,41 +1,31 @@
-10 10
+3 10
 0
-Dogs are loyal
+car fuel oil bus
 1
-Cars are fast
+flower butterfly sunflower apple grape olive
+2
+blue yellow black white
+1,2
+green green fruit
+0,2
+black oil bus
+0,2
+taxi white
+2
+blue black
+0,1
+tree truck oil
+1
+grape tree
+1,2
+black olive
 0
-Water is essential
+truck car
+0,1
+bus butterfly tree
+0,2
+yellow fuel
+2
+black and white
 1
-Coding is fun
-0
-Books are sources of knowledge
-1
-Music is relaxing
-0
-The sun rises in the east
-1
-AI is the future
-0
-Earth is the third planet
-1
-Robots are cool
-0
-Dogs are friendly
-1
-Fast cars are exciting
-0
-Essential water for life
-1
-Fun coding sessions
-0
-Knowledgeable books help
-1
-Relaxing music is soothing
-0
-The east is where the sun rises
-1
-Future is AI-driven
-0
-Earth and planets
-1
-Cool robots are fascinating
+olive abc abc

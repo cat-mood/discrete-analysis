@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <cstdint>
 #include <string>
+#include <algorithm>
 #include "word_tools.h"
 
 using TWord = std::string;
@@ -15,10 +16,11 @@ private:
     using TCategory = std::unordered_map<TWord, uint64_t>;
 
     std::unordered_map<TCategoryName, TCategory> categoriesWeights;
+    double beta = 0.5;
 public:
     TNaiveBayesClassifier() {}
-    void Fit(const std::vector<std::pair<TWord, TCategoryName>>& data);
-    TCategoryName Predict(std::string& str);
+    void Fit(const std::vector<std::pair<TWord, std::vector<TCategoryName>>>& data);
+    std::vector<TCategoryName> Predict(std::string& str);
 
     std::unordered_map<TCategoryName, TCategory> GetCategoriesWeights() const {
         return categoriesWeights;

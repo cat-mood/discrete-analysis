@@ -13,3 +13,14 @@ std::vector<std::string> Split(const std::string& s, const std::string& delimite
     
     return tokens;
 }
+
+std::vector<uint64_t> UIntSplit(const std::string& s, const std::string& delimeters) {
+    std::vector<std::string> stringSplit = Split(s, delimeters);
+    std::vector<uint64_t> uIntSplit;
+
+    for (auto& str : stringSplit) {
+        uIntSplit.push_back(std::stoul(str));
+    }
+
+    return uIntSplit;
+}

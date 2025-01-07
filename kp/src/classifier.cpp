@@ -1,17 +1,27 @@
 #include "classifier.h"
 
-void TNaiveBayesClassifier::Fit(const std::vector<std::pair<TWord, TCategoryName>>& training) {
+void TNaiveBayesClassifier::Fit(const std::vector<std::pair<TWord, std::vector<TCategoryName>>>& training) {
     for (auto& word : training) {
-        TCategory& category = categoriesWeights[word.second];
-        
-        if (!category.contains(word.first)) {
-            category[word.first] = 0;
+        for (auto& category : word.second) {
+            TCategory& weightCategory = categoriesWeights[category];
+            
+            if (!weightCategory.contains(word.first)) {
+                weightCategory[word.first] = 0;
+            }
+            ++weightCategory[word.first];
         }
-        ++category[word.first];
     }
+
+    double maxSize = 0;
+
+    for (auto& category : categoriesWeights) {
+        maxSize = (category.second.size() > maxSize) ? category.second.size() : maxSize;
+    }
+
+    beta += 1 / maxSize;
 }
 
-TCategoryName TNaiveBayesClassifier::Predict(std::string& str) {
+std::vector<TCategoryName> TNaiveBayesClassifier::Predict(std::string& str) {
     ToLowerCase(str);
     std::vector<TWord> split = Split(str, DELIM);
     std::unordered_map<TCategoryName, double> probabilities;
@@ -33,20 +43,28 @@ TCategoryName TNaiveBayesClassifier::Predict(std::string& str) {
             }
         }
         // (category.second.size() / sumCategories) * probability / category.second.size()
-        probabilities[category.first] = probability / sumCategories;
+        probabilities[category.first] = probability / (sumCategories);
     }
 
-    double max = 0;
-    TCategoryName maxCategoryName;
+    std::vector<TCategoryName> categoryNames;
+    double maxProbability = 0;
+
+
+    // std::cout << "probabilities: ";
+    for (auto& category : probabilities) {
+        // std::cout << category.second << ' ';
+        maxProbability = (category.second > maxProbability) ? category.second : maxProbability;
+    }
+
+    // std::cout << std::endl;
 
     for (auto& category : probabilities) {
-        if (max < category.second) {
-            max = category.second;
-            maxCategoryName = category.first;
+        if (category.second / maxProbability > beta) {
+            categoryNames.push_back(category.first);
         }
     }
 
-    return maxCategoryName;
+    return categoryNames;
 }
 
 double TNaiveBayesClassifier::Accuracy(const TConfusionMatrix& matrix) {

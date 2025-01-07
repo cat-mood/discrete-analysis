@@ -1,0 +1,21 @@
+5 5
+0
+red green blue
+1
+car bus train
+2
+apple banana orange
+3
+dog cat mouse
+4
+house tree river
+0
+green red yellow
+1
+train car boat
+2
+banana orange grape
+3
+mouse bird dog
+4
+tree river mountain
