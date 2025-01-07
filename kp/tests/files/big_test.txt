@@ -1,0 +1,171 @@
+50 50
+0
+The cat sat on the mat
+1
+Programming in Python is fun
+0
+The sky is clear today
+1
+Java is a versatile language
+0
+Apples are sweet and crunchy
+1
+Machine learning is fascinating
+0
+I enjoy reading books
+1
+The internet connects the world
+0
+Cooking at home is healthier
+1
+React is a popular frontend framework
+0
+Birds chirp in the morning
+1
+Spring Boot simplifies backend development
+0
+The ocean is vast and deep
+1
+Technology evolves rapidly
+0
+Healthy eating is essential
+1
+Data structures are important in programming
+0
+Dogs are loyal companions
+1
+Artificial intelligence is powerful
+0
+Music soothes the soul
+1
+Microservices enable scalability
+0
+Flowers bloom in spring
+1
+Algorithms optimize processes
+0
+The moon shines at night
+1
+Cloud computing is transformative
+0
+Walking is good for health
+1
+APIs connect applications seamlessly
+0
+Rain refreshes the earth
+1
+Big data analysis drives insights
+0
+Traveling expands perspectives
+1
+Blockchain ensures data integrity
+0
+Sunlight provides energy to plants
+1
+Virtual reality creates immersive experiences
+0
+Children enjoy playing outdoors
+1
+Cybersecurity protects data
+0
+The stars twinkle in the night sky
+1
+DevOps streamlines deployments
+0
+Nature inspires creativity
+1
+Kubernetes orchestrates containers
+0
+Hiking is an adventurous activity
+1
+Quantum computing promises speed
+0
+The desert is hot and dry
+1
+5G technology enables faster communication
+0
+Books open new worlds
+1
+Software engineering builds systems
+0
+Mountains offer breathtaking views
+1
+Edge computing reduces latency
+0
+Winter is cold and snowy
+1
+Internet of Things (IoT) connects devices
+0
+Fruits are a healthy snack
+1
+Programming builds problem-solving skills
+0
+Gardening is a relaxing hobby
+1
+Automation saves time and effort
+0
+Fishing is a peaceful activity
+1
+Analytics turns raw data into knowledge
+0
+The beach is a popular destination
+1
+Networking enhances career growth
+1
+Machine learning models require data
+0
+Nature walks improve mental health
+1
+Database systems manage information
+0
+Tigers are majestic animals
+1
+Virtual assistants simplify tasks
+0
+The forest is home to diverse species
+1
+Web development creates interactive interfaces
+0
+The river flows through the valley
+1
+Digital marketing boosts business reach
+0
+Penguins live in cold climates
+1
+E-commerce simplifies shopping
+0
+Camping is a fun outdoor activity
+1
+Git is a version control system
+0
+The rainforests are rich in biodiversity
+1
+REST APIs provide interoperability
+0
+The city never sleeps
+1
+Data encryption ensures privacy
+0
+Volcanoes are natural wonders
+1
+Mobile apps enhance productivity
+0
+Butterflies are colorful insects
+1
+CI/CD automates software delivery
+0
+History teaches valuable lessons
+1
+Load balancing distributes traffic
+0
+Seasons change throughout the year
+1
+Programming languages have syntax
+0
+The wind whispers through the trees
+1
+Cloud storage offers accessibility
+0
+Polar bears live in the Arctic
+1
+Scrum improves team collaboration

@@ -1,0 +1,41 @@
+10 10
+0
+Dogs are loyal
+1
+Cars are fast
+0
+Water is essential
+1
+Coding is fun
+0
+Books are sources of knowledge
+1
+Music is relaxing
+0
+The sun rises in the east
+1
+AI is the future
+0
+Earth is the third planet
+1
+Robots are cool
+0
+Dogs are friendly
+1
+Fast cars are exciting
+0
+Essential water for life
+1
+Fun coding sessions
+0
+Knowledgeable books help
+1
+Relaxing music is soothing
+0
+The east is where the sun rises
+1
+Future is AI-driven
+0
+Earth and planets
+1
+Cool robots are fascinating
