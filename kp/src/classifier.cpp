@@ -67,7 +67,9 @@ double TNaiveBayesClassifier::Precision(const TConfusionMatrix& matrix, TCategor
     uint64_t trueCategories = matrix[category][category];
     uint64_t falseCategories = 0;
     for (uint64_t i = 0; i < matrix.size(); ++i) {
-        falseCategories += matrix[i][category];
+        if (i != category) {
+            falseCategories += matrix[i][category];
+        }
     }
     return (trueCategories) / static_cast<double>(trueCategories + falseCategories);
 }
@@ -76,7 +78,9 @@ double TNaiveBayesClassifier::Recall(const TConfusionMatrix& matrix, TCategoryNa
     uint64_t trueCategories = matrix[category][category];
     uint64_t falseCategories = 0;
     for (uint64_t i = 0; i < matrix.size(); ++i) {
-        falseCategories += matrix[category][i];
+        if (i != category) {
+            falseCategories += matrix[category][i];
+        }
     }
     return (trueCategories) / static_cast<double>(trueCategories + falseCategories);
 }
