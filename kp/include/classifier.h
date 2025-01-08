@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <string>
 #include <algorithm>
+#include <fstream>
+#include <stdexcept>
 #include "word_tools.h"
 
 using TWord = std::string;
@@ -21,6 +23,8 @@ public:
     TNaiveBayesClassifier() {}
     void Fit(const std::vector<std::pair<TWord, std::vector<TCategoryName>>>& data);
     std::vector<TCategoryName> Predict(std::string& str);
+    void SaveToFile(const std::string& filename) const;
+    void LoadFromFile(const std::string& filename);
 
     std::unordered_map<TCategoryName, TCategory> GetCategoriesWeights() const {
         return categoriesWeights;

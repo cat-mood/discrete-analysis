@@ -67,6 +67,56 @@ std::vector<TCategoryName> TNaiveBayesClassifier::Predict(std::string& str) {
     return categoryNames;
 }
 
+void TNaiveBayesClassifier::SaveToFile(const std::string& filename) const {
+    std::ofstream file(filename);
+
+    if (!file.is_open()) {
+        throw std::runtime_error("Invalid file");
+    }
+
+    file << categoriesWeights.size() << '\n';
+
+    for (auto& w : categoriesWeights) {
+        file << w.first << ' ' << w.second.size() << '\n';
+
+        for (auto& category : w.second) {
+            file << category.first << ' ' << category.second << '\n';
+        }
+    }
+
+    file << beta << '\n';
+}
+
+void TNaiveBayesClassifier::LoadFromFile(const std::string& filename) {
+    std::ifstream file(filename);
+
+    if (!file.is_open()) {
+        throw std::runtime_error("Invalid file");
+    }
+
+    std::unordered_map<TCategoryName, TCategory> categoriesWeights;
+
+    size_t categoriesWeightsSize;
+    file >> categoriesWeightsSize;
+
+    for (uint64_t i = 0; i < categoriesWeightsSize; ++i) {
+        TCategoryName name;
+        file >> name;
+
+        size_t categorySize;
+        file >> categorySize;
+
+        for (uint64_t j = 0; j < categorySize; ++j) {
+            TWord word;
+            uint64_t count;
+            file >> word >> count;
+            categoriesWeights[name][word] = count;
+        }
+    }
+
+    file >> beta;
+}
+
 double TNaiveBayesClassifier::Accuracy(const TConfusionMatrix& matrix) {
     uint64_t trueCategories = 0;
     uint64_t allCategories = 0;
