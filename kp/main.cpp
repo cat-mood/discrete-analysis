@@ -5,7 +5,7 @@
 
 int main(int argc, char** argv) {
     if (argc < 2) {
-        std::cerr << "Too few arguments";
+        std::cerr << "Too few arguments\n";
         exit(1);
     }
 
@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
 
     if (mode == "learn") {
         if (argc != 6) {
-            std::cerr << "Wrong number of arguments" << std::endl;
+            std::cerr << "Wrong number of arguments\n";
             exit(1);
         }
 
@@ -26,17 +26,17 @@ int main(int argc, char** argv) {
             } else if (flag == "--output") {
                 output = argv[i + 1];
             } else {
-                std::cerr << "Wrong flag" << std::endl;
+                std::cerr << "Wrong flag\n";
                 exit(1);
             }
         }
 
-        std::cout << "flags: " << input << ' ' << output << std::endl;
+        // std::cout << "flags: " << input << ' ' << output << std::endl;
 
         std::ifstream file(input);
 
         if (!file.is_open()) {
-            std::cerr << "Invalid file" << std::endl;
+            std::cerr << "Invalid file\n";
             exit(1);
         }
 
@@ -68,12 +68,12 @@ int main(int argc, char** argv) {
         try {
             model.SaveToFile(output);
         } catch (std::exception& e) {
-            std::cerr << e.what() << std::endl;
+            std::cerr << e.what() << '\n';
             exit(1);
         }
     } else if (mode == "classify") {
         if (argc != 8) {
-            std::cerr << "Wrong number of arguments" << std::endl;
+            std::cerr << "Wrong number of arguments\n";
             exit(1);
         }
 
@@ -88,13 +88,18 @@ int main(int argc, char** argv) {
             } else if (flag == "--stats") {
                 stats = argv[i + 1];
             } else {
-                std::cerr << "Wrong flag" << std::endl;
+                std::cerr << "Wrong flag\n";
                 exit(1);
             }
         }
 
         TNaiveBayesClassifier model;
-        model.LoadFromFile(stats);
+        try {
+            model.LoadFromFile(stats);
+        } catch (std::exception& e) {
+            std::cerr << e.what() << '\n';
+            exit(1);
+        }
 
         uint64_t n;
         std::vector<std::pair<TWord, std::vector<TCategoryName>>> data;
@@ -127,7 +132,7 @@ int main(int argc, char** argv) {
             out << '\n';
         }
     } else {
-        std::cerr << "Wrong mode" << std::endl;
+        std::cerr << "Wrong mode\n";
         exit(1);
     }
 

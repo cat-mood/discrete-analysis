@@ -102,10 +102,17 @@ void TNaiveBayesClassifier::LoadFromFile(const std::string& filename) {
         size_t categorySize;
         file >> categorySize;
 
+        if (file.peek() == EOF) {
+            throw std::runtime_error("Bad file");
+        }
+
         for (uint64_t j = 0; j < categorySize; ++j) {
             TWord word;
             uint64_t count;
             file >> word >> count;
+            if (file.peek() == EOF) {
+                throw std::runtime_error("Bad file");
+            }
             categoriesWeights[name][word] = count;
         }
     }
