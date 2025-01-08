@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include "classifier.h"
 
 int main(int argc, char** argv) {
@@ -18,17 +19,19 @@ int main(int argc, char** argv) {
 
         std::string input, output;
 
-        for (int i = 2; i < 4; i += 2) {
-            std::string flag(argv[2]);
+        for (int i = 2; i <= 4; i += 2) {
+            std::string flag(argv[i]);
             if (flag == "--input") {
-                input = argv[3];
+                input = argv[i + 1];
             } else if (flag == "--output") {
-                output = argv[5];
+                output = argv[i + 1];
             } else {
                 std::cerr << "Wrong flag" << std::endl;
                 exit(1);
             }
         }
+
+        std::cout << "flags: " << input << ' ' << output << std::endl;
 
         std::ifstream file(input);
 
@@ -61,50 +64,72 @@ int main(int argc, char** argv) {
 
         TNaiveBayesClassifier model;
         model.Fit(data);
+
+        try {
+            model.SaveToFile(output);
+        } catch (std::exception& e) {
+            std::cerr << e.what() << std::endl;
+            exit(1);
+        }
     } else if (mode == "classify") {
-        
-    }
-
-    std::vector<std::pair<TWord, std::vector<TCategoryName>>> training;
-
-    uint64_t trainingCount, testCount;
-    std::cin >> trainingCount >> testCount;
-
-    for (uint64_t i = 0; i < trainingCount; ++i) {
-        std::string rawCategories;
-        std::string rawTraining;
-        std::getline(std::cin, rawCategories);
-        std::getline(std::cin, rawTraining);
-        ToLowerCase(rawTraining);
-
-        std::vector<TWord> split = Split(rawTraining, DELIM);
-        std::vector<TCategoryName> categories = UIntSplit(rawCategories, DELIM);
-        for (TWord& word : split) {
-            training.push_back({word, categories});
+        if (argc != 8) {
+            std::cerr << "Wrong number of arguments" << std::endl;
+            exit(1);
         }
-    }
 
-    TNaiveBayesClassifier model;
-    model.Fit(training);
+        std::string input, stats, output;
 
-    std::string str;
-
-    while (std::getline(std::cin, str)) {
-        std::vector<TCategoryName> predicted = model.Predict(str);
-        
-        for (auto& category : predicted) {
-            std::cout << category << std::endl;
+        for (int i = 2; i <= 6; i += 2) {
+            std::string flag(argv[i]);
+            if (flag == "--input") {
+                input = argv[i + 1];
+            } else if (flag == "--output") {
+                output = argv[i + 1];
+            } else if (flag == "--stats") {
+                stats = argv[i + 1];
+            } else {
+                std::cerr << "Wrong flag" << std::endl;
+                exit(1);
+            }
         }
+
+        TNaiveBayesClassifier model;
+        model.LoadFromFile(stats);
+
+        uint64_t n;
+        std::vector<std::pair<TWord, std::vector<TCategoryName>>> data;
+        std::ifstream file(input);
+        std::ofstream out(output);
+
+        while (file >> n) {
+            file >> std::ws;
+            std::string question;
+            std::string rawDoc;
+            for (uint64_t i = 0; i < n + 1; ++i) {
+                std::string line;
+                std::getline(file, line);
+                if (i == 0) {
+                    question = line;
+                }
+                rawDoc += line + ' ';
+            }
+
+            std::vector<TCategoryName> predict = model.Predict(rawDoc);
+            std::sort(predict.begin(), predict.end());
+
+            out << question << '\n';
+            for (size_t i = 0; i < predict.size(); ++i) {
+                out << predict[i];
+                if (i < predict.size() - 1) {
+                    out << ',';
+                }
+            }
+            out << '\n';
+        }
+    } else {
+        std::cerr << "Wrong mode" << std::endl;
+        exit(1);
     }
-
-    // auto weights = model.GetCategoriesWeights();
-
-    // for (auto& weight : weights) {
-    //     std::cout << weight.first << std::endl;
-    //     for (auto& el : weight.second) {
-    //         std::cout << el.first << ' ' << el.second << std::endl;
-    //     }
-    // }
 
     return 0;
 }

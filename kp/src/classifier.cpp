@@ -50,13 +50,9 @@ std::vector<TCategoryName> TNaiveBayesClassifier::Predict(std::string& str) {
     double maxProbability = 0;
 
 
-    // std::cout << "probabilities: ";
     for (auto& category : probabilities) {
-        // std::cout << category.second << ' ';
         maxProbability = (category.second > maxProbability) ? category.second : maxProbability;
     }
-
-    // std::cout << std::endl;
 
     for (auto& category : probabilities) {
         if (category.second / maxProbability > beta) {
@@ -115,6 +111,8 @@ void TNaiveBayesClassifier::LoadFromFile(const std::string& filename) {
     }
 
     file >> beta;
+
+    this->categoriesWeights = std::move(categoriesWeights);
 }
 
 double TNaiveBayesClassifier::Accuracy(const TConfusionMatrix& matrix) {
